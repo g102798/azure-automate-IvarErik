@@ -2,6 +2,7 @@
 param (
     [Parameter(HelpMessage = "Ivar Erik", Mandatory = $true)]
     [string]
-    $Navn
+    $Navn,
+    $status
 )
-Write-Host "Hei $Navn"
+Write-Host "Hei $Navn $status"
