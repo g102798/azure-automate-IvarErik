@@ -1,11 +1,3 @@
-[CmdletBinding()]
-param (
-    # parameter er ikke obligatorisk siden vi har default verdi
-    [Parameter(HelpMessage = "URL til kortstokk", Mandatory = $false)]
-    [string]
-    # når paramater ikke er gitt brukes default verdi
-    $UrlKortstokk = 'http://nav-deckofcards.herokuapp.com/shuffle'
-)
 
 $webRequest = Invoke-WebRequest -Uri $UrlKortstokk
 $ErrorActionPreference = 'Stop'
@@ -50,7 +42,6 @@ Write-Output "Kortstokk: $(kortStokkTilStreng -kortstokk $kortstokk)"
 
 # hvorfor kommer det et komma ',' etter siste kort?
 # frivillig oppgave - kan du forbedre funksjonen 'kortTilStreng' - ikke skrive ut komma etter siste kort?
-
 ### Regn ut den samlede poengsummen til kortstokk
 #   Nummererte kort har poeng som angitt på kortet
 #   Knekt (J), Dronning (Q) og Konge (K) teller som 10 poeng
@@ -67,21 +58,21 @@ foreach ($kort in $kortstokk) {
     if ($kort.value -ceq 'J') {
         $poengKortstokk = $poengKortstokk + 10
     }
-    elseif ($kort.value -ceq '?') {
+    elseif ($kort.value -ceq 'Q') {
         $poengKortstokk = $poengKortstokk + 10
     }
-    elseif ($kort.value -ceq '?') {
+    elseif ($kort.value -ceq 'K') {
         $poengKortstokk = $poengKortstokk + 10
     }
-    elseif ($kort.value -ceq '?') {
+    elseif ($kort.value -ceq 'A') {
         $poengKortstokk = $poengKortstokk + 11
     }
     else {
-        $poengKortstokk = #?
+        $poengKortstokk = $poengKortstokk + $kort.value
     }
 }
 
-Write-Host <# ? #>
+Write-Host "Poengsum: $Poengkortstokk"
 
 # 2. utgave - ønsker koden som en funksjon - hvorfor?
 
@@ -99,7 +90,7 @@ function sumPoengKortstokk {
     foreach ($kort in $kortstokk) {
         # Undersøk hva en Switch er
         $poengKortstokk += switch ($kort.value) {
-            { $_ -cin @('J', <#?#>) } { 10 }
+            { $_ -cin @('J','Q','K') } { 10 }
             'A' { <#?#> }
             default { $kort.value }
         }
@@ -108,3 +99,17 @@ function sumPoengKortstokk {
 }
 
 Write-Output "Poengsum: $(sumPoengKortstokk -kortstokk $kortstokk)"
+
+
+$meg = $kortstokk[0..1]
+
+
+$kortstokk = $kortstokk[2..($kortstokk.Count-1)]
+
+$magnus = $kortstokk[0..1]
+
+$kortstokk = $kortstokk[2..($kortstokk.Count)]
+
+Write-Host "meg: $KortstokkTilString -Kortstokk $meg"
+Write-Host "meg: $KortstokkTilString -Kortstokk $magnus"
+Write-Host "meg: $KortstokkTilString -Kortstokk $Kortstokk"

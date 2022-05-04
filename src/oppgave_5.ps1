@@ -50,7 +50,6 @@ Write-Output "Kortstokk: $(kortStokkTilStreng -kortstokk $kortstokk)"
 
 # hvorfor kommer det et komma ',' etter siste kort?
 # frivillig oppgave - kan du forbedre funksjonen 'kortTilStreng' - ikke skrive ut komma etter siste kort?
-
 ### Regn ut den samlede poengsummen til kortstokk
 #   Nummererte kort har poeng som angitt på kortet
 #   Knekt (J), Dronning (Q) og Konge (K) teller som 10 poeng
@@ -67,21 +66,21 @@ foreach ($kort in $kortstokk) {
     if ($kort.value -ceq 'J') {
         $poengKortstokk = $poengKortstokk + 10
     }
-    elseif ($kort.value -ceq '?') {
+    elseif ($kort.value -ceq 'Q') {
         $poengKortstokk = $poengKortstokk + 10
     }
-    elseif ($kort.value -ceq '?') {
+    elseif ($kort.value -ceq 'K') {
         $poengKortstokk = $poengKortstokk + 10
     }
-    elseif ($kort.value -ceq '?') {
+    elseif ($kort.value -ceq 'A') {
         $poengKortstokk = $poengKortstokk + 11
     }
     else {
-        $poengKortstokk = #?
+        $poengKortstokk = $poengKortstokk + $kort.value
     }
 }
 
-Write-Host <# ? #>
+Write-Host "Poengsum: $poengKortstokk"
 
 # 2. utgave - ønsker koden som en funksjon - hvorfor?
 
@@ -99,8 +98,8 @@ function sumPoengKortstokk {
     foreach ($kort in $kortstokk) {
         # Undersøk hva en Switch er
         $poengKortstokk += switch ($kort.value) {
-            { $_ -cin @('J', <#?#>) } { 10 }
-            'A' { <#?#> }
+            { $_ -cin @('J','Q', 'K' <#?#>) } { 10 }
+            'A' { 11 }
             default { $kort.value }
         }
     }
