@@ -1,4 +1,16 @@
 
+[CmdletBinding()]
+param (
+    # parameter er ikke obligatorisk siden vi har default verdi
+    [Parameter(HelpMessage = "URL til kortstokk", Mandatory = $false)]
+    [string]
+    # når paramater ikke er gitt brukes default verdi
+    $UrlKortstokk = 'http://nav-deckofcards.herokuapp.com/shuffle'
+)
+
+$webRequest = Invoke-WebRequest -Uri $kortstokk
+
+
 $ErrorActionPreference = 'Stop'
 
 $webRequest = Invoke-WebRequest -Uri "http://nav-deckofcards.herokuapp.com/shuffle"
