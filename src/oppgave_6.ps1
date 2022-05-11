@@ -1,6 +1,15 @@
 
-$webRequest = Invoke-WebRequest -Uri $UrlKortstokk
+[CmdletBinding()]
+param (
+    # parameter er ikke obligatorisk siden vi har default verdi
+    [Parameter(HelpMessage = "URL til kortstokk", Mandatory = $false)]
+    [string]
+    # når paramater ikke er gitt brukes default verdi
+    $UrlKortstokk = 'http://nav-deckofcards.herokuapp.com/shuffle'
+)
 $ErrorActionPreference = 'Stop'
+
+$webRequest = Invoke-WebRequest -Uri $UrlKortstokk
 
 
 
@@ -12,7 +21,7 @@ $kortstokk = ConvertFrom-Json -InputObject $kortstokkJson
 
 
 
-foreach ($kort in $kortstokk) {
+<# foreach ($kort in $kortstokk) {
     Write-Output $kort
 }
 
@@ -20,7 +29,7 @@ foreach ($kort in $kortstokk) {
 
 foreach ($kort in $kortstokk) {
     Write-Output "$($kort.suit[0])+$($kort.value)"
-}
+} #>
 
 # 3. utgave - ønsker egentlig hele kortstokken som en streng og den koden som en funksjon (gjenbruk)
 
@@ -47,12 +56,17 @@ Write-Output "Kortstokk: $(kortStokkTilStreng -kortstokk $kortstokk)"
 #   Knekt (J), Dronning (Q) og Konge (K) teller som 10 poeng
 #   Ess (A) teller som 11 poeng
 
-# 1. - utgave - summen av poeng for kort er form for loop/iterere oppgave
 
-$poengKortstokk = # god startverdi?
+
+# 1. - utgave - summen av poeng for kort er form for loop/iterere oppgave
+<# 
+$poengKortstokk = 0
 
 # hva er forskjellen mellom -eq, ieg og ceq?
 # # https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_comparison_operators?view=powershell-7.2
+
+
+
 
 foreach ($kort in $kortstokk) {
     if ($kort.value -ceq 'J') {
@@ -71,8 +85,8 @@ foreach ($kort in $kortstokk) {
         $poengKortstokk = $poengKortstokk + $kort.value
     }
 }
-
-Write-Host "Poengsum: $Poengkortstokk"
+ #>
+<# Write-Host "Poengsum: $poengKortstokk" #>
 
 # 2. utgave - ønsker koden som en funksjon - hvorfor?
 
@@ -90,8 +104,8 @@ function sumPoengKortstokk {
     foreach ($kort in $kortstokk) {
         # Undersøk hva en Switch er
         $poengKortstokk += switch ($kort.value) {
-            { $_ -cin @('J','Q','K') } { 10 }
-            'A' { <#?#> }
+            { $_ -cin @('J','Q', 'K') } { 10 }
+            'A' { 11 }
             default { $kort.value }
         }
     }
@@ -99,7 +113,6 @@ function sumPoengKortstokk {
 }
 
 Write-Output "Poengsum: $(sumPoengKortstokk -kortstokk $kortstokk)"
-
 
 $meg = $kortstokk[0..1]
 
@@ -110,6 +123,6 @@ $magnus = $kortstokk[0..1]
 
 $kortstokk = $kortstokk[2..($kortstokk.Count)]
 
-Write-Host "meg: $KortstokkTilString -Kortstokk $meg"
-Write-Host "meg: $KortstokkTilString -Kortstokk $magnus"
-Write-Host "meg: $KortstokkTilString -Kortstokk $Kortstokk"
+Write-Host "meg: $(kortStokkTilStreng -kortstokk $meg)"
+Write-Host "magnus: $(KortstokkTilStreng -kortstokk $magnus)"
+Write-Host "kortstokk: $(KortstokkTilStreng -kortstokk $kortstokk)"
