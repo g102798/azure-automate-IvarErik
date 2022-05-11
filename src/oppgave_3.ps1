@@ -7,13 +7,9 @@ param (
     # når paramater ikke er gitt brukes default verdi
     $UrlKortstokk = 'http://nav-deckofcards.herokuapp.com/shuffle'
 )
-
-$webRequest = Invoke-WebRequest -Uri $kortstokk
-
-
 $ErrorActionPreference = 'Stop'
+$webRequest = Invoke-WebRequest -Uri $UrlKortstokk
 
-$webRequest = Invoke-WebRequest -Uri "http://nav-deckofcards.herokuapp.com/shuffle"
 
 $kortstokkJson = $webRequest.Content
 
@@ -23,16 +19,16 @@ $kortstokk = ConvertFrom-Json -InputObject $kortstokkJson
 
 
 
-foreach ($kort in $kortstokk) {
+<# foreach ($kort in $kortstokk) {
     Write-Output $kort
 }
-
+ #>
 # https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_operators?view=powershell-7.1#subexpression-operator--
 
-foreach ($kort in $kortstokk) {
-    Write-Output "$($kort.suit[0])+$($kort.value)"
+<# foreach ($kort in $kortstokk) {
+    Write-Output "$($kort.suit[0])$($kort.value)"
 }
-
+ #>
 # 3. utgave - ønsker egentlig hele kortstokken som en streng og den koden som en funksjon (gjenbruk)
 
 function kortstokkTilStreng {
