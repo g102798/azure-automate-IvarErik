@@ -152,7 +152,7 @@ elseif ((sumPoengKortstokk -kortstokk $meg) -eq $blackjack) {
     skrivUtResultat -vinner 'meg' -kortStokkMagnus $magnus -kortStokkMeg $meg
     exit
 }
-elseif ((sumPoengKortstokk -kortstokk <#?#>) -eq $blackjack) {
+elseif ((sumPoengKortstokk -kortstokk $meg) -eq $blackjack) {
     skrivUtResultat -vinner "magnus" -kortStokkMagnus $magnus -kortStokkMeg $meg
     exit
 }
