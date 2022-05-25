@@ -1,0 +1,20 @@
+name: oppgave 15
+on:
+  push:
+   branches:
+    
+  workflow_dispatch:
+
+jobs:
+  job1:
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: ${{github.worrkspase}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/sheckout@v2
+
+      - name: Run Blackjack script file
+        run: ./src/oppgarve_10.ps1

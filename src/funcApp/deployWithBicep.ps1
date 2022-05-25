@@ -2,7 +2,7 @@ param (
   [string]$firstName,
   [string]$resourceGroupName,
   [string]$Location = "norwayeast",
-  [string]$TemplateFile = "$PSScriptRoot/functionApp.bicep",
+  [string]$TemplateFile = "./functionApp.bicep",
   [string]$subscription = "9f1b36f0-ab4c-444f-bd67-0b742263c2d6"
 )
 
