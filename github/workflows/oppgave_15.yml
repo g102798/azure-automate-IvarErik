@@ -7,11 +7,11 @@ jobs:
     defaults:
       run:
         shell: pwsh
-        working-directory: ${{github.worrkspase}}
+        working-directory: ${{ github.worrkspase }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/sheckout@v2
+        uses: actions/checkout@v2
 
       - name: Run Blackjack script file
         run: ./src/oppgarve_10.ps1
