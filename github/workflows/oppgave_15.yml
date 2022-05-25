@@ -1,10 +1,7 @@
 name: oppgave 15
 on:
   push:
-   branches:
-    
   workflow_dispatch:
-
 jobs:
   job1:
     defaults:
